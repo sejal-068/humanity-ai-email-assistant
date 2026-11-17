@@ -44,7 +44,7 @@ router.delete('/:id', async (req, res) => {
   const account = await EmailAccount.findById(req.params.id);
   if (!account) return res.status(404).json({ message: 'Account not found' });
   if (!account.userId.equals(req.user._id)) return res.status(403).json({ message: 'Access denied' });
-  await account.remove();
+  await EmailAccount.findByIdAndDelete(req.params.id);
   res.json({ message: 'Account disconnected' });
 });
 
